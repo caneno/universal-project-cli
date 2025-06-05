@@ -1,0 +1,44 @@
+/my-project-name
+│
+├── README.md              # Main project documentation
+├── LICENSE                # Licensing (MIT, Apache, etc)
+├── .gitignore             # Ignore unnecessary files
+├── .env.example          # Sample environment file (never commit actual .env)
+│
+├── /src                   # Main source code
+│   ├── __init__.py
+│   ├── main.py            # Main entry point
+│   ├── /modules           # Core modules or features
+│   │   ├── __init__.py
+│   │   ├── scanner.py
+│   │   ├── parser.py
+│   │   └── utils.py
+│   └── /reporting         # Reporting logic (optional)
+│       ├── __init__.py
+│       └── reporter.py
+│
+├── /tests                 # Unit and integration tests
+│   ├── test_scanner.py
+│   └── test_reporter.py
+│
+├── /infra                 # Infra-as-Code: Terraform, Ansible, etc.
+│   ├── terraform.tf
+│   ├── main.tf
+│   └── README.md
+│
+├── /ci                    # CI/CD pipeline configs (GitHub Actions, GitLab, etc.)
+│   └── pipeline.yaml
+│
+├── /scripts               # Automation or helper scripts
+│   ├── deploy.sh
+│   ├── install.sh
+│   └── cleanup.sh
+│
+├── /configs               # App configs (YAML, JSON)
+│   ├── config.yaml
+│   └── aws_config.yaml
+│
+└── /docs                  # All your documentation
+    ├── architecture.md
+    ├── usage.md
+    └── changelog.md
