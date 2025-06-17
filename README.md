@@ -25,3 +25,9 @@
 1. **Build the CLI**
    ```bash
    go build -o ./executables/ ./cli.go
+
+2. **Run the CLI**
+    ```bash
+    ./executables/cli --pname="my-project-name" --path="./projects"
+    or
+    ./executables/cli -pname "my-project-name" -path "./projects"
