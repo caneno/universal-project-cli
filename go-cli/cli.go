@@ -90,7 +90,7 @@ func testfun(cfg Config) {
 				fmt.Printf("Failed to create folder %v\n", err)
 			}
 			for _, file := range direct.Files {
-				f, err := os.Create("./" + direct.DirName + "/" + file)
+				f, err := os.Create(cfg.path + "/" + direct.DirName + "/" + file)
 				if err != nil {
 					fmt.Printf("Error creating file: %v\n", err)
 					return
@@ -104,7 +104,7 @@ func testfun(cfg Config) {
 				fmt.Printf("Failed to create folder %s: %v\n", direct, err)
 			}
 			for _, file := range direct.Files {
-				fle, err := os.Create("./" + cfg.pname + "/" + direct.DirName + "/" + file)
+				fle, err := os.Create(cfg.path + "/" + cfg.pname + "/" + direct.DirName + "/" + file)
 				if err != nil {
 					fmt.Printf("Error creating file: %v\n", err)
 					return
