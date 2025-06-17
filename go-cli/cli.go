@@ -95,7 +95,7 @@ func testfun(cfg Config) {
 					fmt.Printf("Error creating file: %v\n", err)
 					return
 				}
-				defer f.Close()
+				f.Close()
 			}
 
 		} else {
@@ -109,7 +109,7 @@ func testfun(cfg Config) {
 					fmt.Printf("Error creating file: %v\n", err)
 					return
 				}
-				defer fle.Close()
+				fle.Close()
 			}
 
 		}
