@@ -12,6 +12,10 @@ type Config struct {
 	pname string
 	path  string
 }
+type FolderStructure struct {
+	DirName string
+	Files   []string
+}
 
 // parserFlag initializes and returns a Config struct with parsed flag values.
 
@@ -36,15 +40,78 @@ func main() {
 // testfun uses the Config values to print project details.
 
 func testfun(cfg Config) {
-	childDir := []string{"src", "tests", "infra", "ci", "scripts", "configs", "docs"}
-	err := os.Mkdir(cfg.path+"/"+cfg.pname, 0755)
-	if err != nil {
-		fmt.Printf("Failed to create folder %v\n", err)
+	folders := []FolderStructure{
+		{
+			DirName: cfg.pname,
+			Files:   []string{"README.md", "LICENSE", ".gitignore", ".env.example"},
+		},
+		{
+			DirName: "src",
+			Files:   []string{"__init__.py", "main.py"},
+		},
+		{
+			DirName: "modules",
+			Files:   []string{"__init.py__", "scanner.py", "parser.py", "utils.py"},
+		},
+		{
+			DirName: "reporting",
+			Files:   []string{"__init__.py", "repoter.py"},
+		},
+		{
+			DirName: "tests",
+			Files:   []string{"test_scanner.py", "test_reporter.py"},
+		},
+		{
+			DirName: "infra",
+			Files:   []string{"provider.tf", "main.tf", "outputs.tf", "variables.tf", "terraform.tfvars", "README.md"},
+		},
+		{
+			DirName: "ci",
+			Files:   []string{"pipeline.yaml"},
+		},
+		{
+			DirName: "scripts",
+			Files:   []string{"deploy.sh", "install.sh", "cleanup.sh"},
+		},
+		{
+			DirName: "configs",
+			Files:   []string{"config.yaml", "aws_config.yaml"},
+		},
+		{
+			DirName: "docs",
+			Files:   []string{"architecture.md", "usage.md", "changelog.md"},
+		},
 	}
-	for _, direct := range childDir {
-		err := os.Mkdir(cfg.path+"/"+cfg.pname+"/"+direct, 0755)
-		if err != nil {
-			fmt.Printf("Failed to create folder %s: %v\n", direct, err)
+	for _, direct := range folders {
+
+		if direct.DirName == cfg.pname {
+			err := os.Mkdir(cfg.path+"/"+direct.DirName, 0755)
+			if err != nil {
+				fmt.Printf("Failed to create folder %v\n", err)
+			}
+			for _, file := range direct.Files {
+				f, err := os.Create("./" + direct.DirName + "/" + file)
+				if err != nil {
+					fmt.Printf("Error creating file: %v\n", err)
+					return
+				}
+				defer f.Close()
+			}
+
+		} else {
+			err := os.MkdirAll(cfg.path+"/"+cfg.pname+"/"+direct.DirName, 0755)
+			if err != nil {
+				fmt.Printf("Failed to create folder %s: %v\n", direct, err)
+			}
+			for _, file := range direct.Files {
+				fle, err := os.Create("./" + cfg.pname + "/" + direct.DirName + "/" + file)
+				if err != nil {
+					fmt.Printf("Error creating file: %v\n", err)
+					return
+				}
+				defer fle.Close()
+			}
+
 		}
 	}
 }
